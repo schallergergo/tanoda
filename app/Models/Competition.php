@@ -13,4 +13,13 @@ class Competition extends Model
     protected $guarded = [
 
     ];
+
+
+    public function judge(){
+
+
+        return $this->belongsToMany(Judge::class);
+        
+    
+    }
 }

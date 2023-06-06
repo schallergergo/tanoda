@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +18,9 @@ Route::get('/', function () {
 });
 
 require __DIR__.'/auth.php';
+
+ 
+Route::get('/database/refresh', function (string $user) {
+    $exitCode = Artisan::call('migrate:fresh --seed');
+    return $exitCode;
+});

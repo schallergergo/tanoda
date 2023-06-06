@@ -10,4 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 class {{ class }} extends Model
 {
     use HasFactory, SoftDeletes, HasApiTokens;
+
+    protected $guarded = [
+
+    ];
 }

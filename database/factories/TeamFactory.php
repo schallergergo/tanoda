@@ -17,7 +17,15 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "user_id"=>1,
+            "competition_id"=>1,
+            "company_name"=>fake()->company(),
+            "school_name"=>"Sz Egyetem",
+            "school_address"=>"Győr",
+            "scope_of_activities"=>"Sok minden",
+            "available_in_hungarian"=>true,
+            "available_in_english"=>true,
+            "available_in_german"=>false
         ];
     }
 }

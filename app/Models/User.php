@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function judge(){
+        return  $this->hasOne(Judge::class);
+    }
+
+    public function isAdmin(){
+        return $this->role=="admin";
+    }
 }

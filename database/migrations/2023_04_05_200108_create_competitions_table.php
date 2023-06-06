@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->unsignedBigInteger("organiser_id");
             $table->integer("duration_in_days");
             $table->integer("registration_fee");
             $table->datetime("registration_start");
             $table->datetime("registration_end");
-            $table->string("cover_photo_url");
+            $table->string("cover_image_url")->nullable();
             $table->datetime("evaluation_start");
             $table->datetime("evaluation_end");
             $table->text("comment");
-            $table->string("stand_templete");
+            $table->string("stand_template_url")->nullable();
             $table->text("stand_description_hu");
             $table->text("stand_description_en");
             $table->boolean("status")->default(true);

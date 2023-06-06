@@ -34,11 +34,9 @@ class StoreCompetitionRequest extends FormRequest
             "registration_fee"=>['required',"integer",'max:1000000 '],
             "registration_start"=>['required',"date_format:Y-m-d H:i:s"],
             "registration_end"=>['required',"date_format:Y-m-d H:i:s"],
-            "cover_photo_url"=> ['required',"string",'max:255'],
             "evaluation_start"=>['required',"date_format:Y-m-d H:i:s"],
             "evaluation_end"=>['required',"date_format:Y-m-d H:i:s"],
             "comment"=>['required',"string"],
-            "stand_templete"=>['required',"string",'max:255'],
             "stand_description_hu"=>['required',"string"],
             "stand_description_en"=>['required',"string"],
         ];
@@ -52,7 +50,7 @@ class StoreCompetitionRequest extends FormRequest
 
             'status'   => 400,
 
-            'message'   => 'Validation errors',
+            'message'   => __('Validation errors'),
 
             'data'      => $validator->errors()
 

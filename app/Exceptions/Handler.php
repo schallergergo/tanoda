@@ -9,7 +9,7 @@ use Throwable;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -42,6 +42,29 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+
+
+ /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof AuthorizationException)
+        {
+            return response()->json([
+                "success"=> false,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+        
+        return parent::render($request, $exception);
+    }
     /**
      * Register the exception handling callbacks for the application.
      *
@@ -79,6 +102,18 @@ class Handler extends ExceptionHandler
         });
         }
     
+
+        private function forbidden(){ 
+
+        $this->renderable(function (Htt $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success'=>false,
+                    'message' => 'Method not allowed.'
+                ], 403);
+            }
+        });
+        }
 
     }
 

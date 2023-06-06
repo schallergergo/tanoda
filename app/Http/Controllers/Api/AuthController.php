@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +30,7 @@ class AuthController extends Controller
 
             if($validateUser->fails()){
                 return response()->json([
-                    'status' => 400,
+                    'success' => false,
                     'message' => 'validation error',
                     'data' => $validateUser->errors()
                 ], 400);
@@ -41,15 +42,17 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            $request->session()->regenerate();
+
             return response()->json([
-                'status' => 201,
+                'success' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'data' => $user,
             ], 200);
 
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => 500,
+                'success' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
@@ -85,11 +88,35 @@ class AuthController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
-
+             $request->session()->regenerate();
             return response()->json([
                 'status' => 200,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Login The User
+     * @param Request $request
+     * @return User
+     */
+    public function logoutUser()
+    {
+        try {
+
+            Session::flush();
+        
+            Auth::logout();
+            return response()->json([
+                'status' => 200,
+                'message' => 'User Logged Out Successfully',
             ], 200);
 
         } catch (\Throwable $th) {
@@ -100,3 +127,5 @@ class AuthController extends Controller
         }
     }
 } 
+
+

@@ -15,6 +15,17 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("competition_id");
+            $table->string("company_name");
+            $table->string("pe_code")->nullable();
+            $table->string("school_name");
+            $table->string("school_address");
+            $table->text("scope_of_activities");
+            $table->boolean("available_in_hungarian");
+            $table->boolean("available_in_english");
+            $table->boolean("available_in_german");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

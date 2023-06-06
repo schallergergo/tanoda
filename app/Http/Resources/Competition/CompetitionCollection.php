@@ -1,6 +1,6 @@
 <?php
  
-namespace App\Http\Resources;
+namespace App\Http\Resources\Competition;
  
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -16,11 +16,9 @@ class CompetitionCollection extends ResourceCollection
     {
         return [
             "success"=>true,
-            "message"=>"Record found",
+            "message"=>__("Record found"),
             'data' => $this->collection,
-            'links' => [
-                'self' => 'link-value',
-            ],
+            
         ];
     }
 }

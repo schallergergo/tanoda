@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+use Illuminate\Contracts\Validation\Validator;
 
 class UpdateCompetitionRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class UpdateCompetitionRequest extends FormRequest
      *
      * @return bool
      */
-      */
+      
     public function authorize()
     {
         return true;
@@ -30,11 +33,9 @@ class UpdateCompetitionRequest extends FormRequest
             "registration_fee"=>['required',"integer",'max:1000000 '],
             "registration_start"=>['required',"date_format:Y-m-d H:i:s"],
             "registration_end"=>['required',"date_format:Y-m-d H:i:s"],
-            "cover_photo_url"=> ['required',"string",'max:255'],
             "evaluation_start"=>['required',"date_format:Y-m-d H:i:s"],
             "evaluation_end"=>['required',"date_format:Y-m-d H:i:s"],
             "comment"=>['required',"string"],
-            "stand_templete"=>['required',"string",'max:255'],
             "stand_description_hu"=>['required',"string"],
             "stand_description_en"=>['required',"string"],
         ];

@@ -16,9 +16,9 @@ class CompetitionPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -28,9 +28,9 @@ class CompetitionPolicy
      * @param  \App\Models\Competition  $competition
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Competition $competition)
+    public function view(?User $user, Competition $competition)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,10 @@ class CompetitionPolicy
      */
     public function create(User $user)
     {
-        //
+        if ($user->isAdmin()) return true;
+
+        if ($user->role=="organiser") return true;
+        return false;
     }
 
     /**
@@ -53,7 +56,9 @@ class CompetitionPolicy
      */
     public function update(User $user, Competition $competition)
     {
-        //
+        if ($user->isAdmin()) return true;
+        if ($this->isOrganiserOfCompetition($user, $competition)) return true;
+        return false;
     }
 
     /**
@@ -65,7 +70,9 @@ class CompetitionPolicy
      */
     public function delete(User $user, Competition $competition)
     {
-        //
+        if ($user->isAdmin()) return true;
+        if ($this->isOrganiserOfCompetition($user, $competition)) return true;
+        return false;
     }
 
     /**
@@ -77,7 +84,9 @@ class CompetitionPolicy
      */
     public function restore(User $user, Competition $competition)
     {
-        //
+        if ($user->isAdmin()) return true;
+        if ($this->isOrganiserOfCompetition($user, $competition)) return true;
+        return false;
     }
 
     /**
@@ -89,6 +98,13 @@ class CompetitionPolicy
      */
     public function forceDelete(User $user, Competition $competition)
     {
-        //
+        if ($user->isAdmin()) return true;
+        if ($this->isOrganiserOfCompetition($user, $competition)) return true;
+        return false;
+    }
+    
+    public function isOrganiserOfCompetition(User $user, Competition $competition){
+        return ($user->role=="organiser" && $competition->organiser_id==$user->id);
+        
     }
 }
