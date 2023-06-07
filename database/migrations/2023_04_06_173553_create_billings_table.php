@@ -16,6 +16,14 @@ return new class extends Migration
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("team_id");
+            $table->string("name")->nullable();
+            $table->string("country")->nullable();
+            $table->string("postcode")->nullable();
+            $table->string("city")->nullable();
+            $table->string("street")->nullable();
+            $table->string("house_no")->nullable();
+            $table->string("vat_no")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -7,23 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class Competition extends Model
+class TeamMember extends Model
 {
     use HasFactory, SoftDeletes, HasApiTokens;
+
     protected $guarded = [
 
     ];
 
-
-    public function judge(){
-
-
-        return $this->belongsToMany(Judge::class);
-        
-    
-    }
-
     public function team(){
-        return $this->hasMany(Team::class);
+        return $this->belongsTo(Team::class);
     }
 }

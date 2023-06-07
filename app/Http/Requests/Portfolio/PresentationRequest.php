@@ -1,26 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-
-class UpdatePortfolioRequest extends FormRequest
+class PresentationRequest extends FormRequest
 {
-    
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            "motto"=>['required',"string",'max:255'],
-            "company_description"=>['required',"string",'max:150 '],
-            "webpage"=>['required',"url",'max:255'],
+             "presentation"=> ["required","file",'mimes:ppt,pptx'],
         ];
     }
 

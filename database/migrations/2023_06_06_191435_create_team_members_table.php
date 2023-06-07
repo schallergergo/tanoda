@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('team_members', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("team_id");
+            $table->string("name");
+            $table->string("email");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('team_members');
     }
 };

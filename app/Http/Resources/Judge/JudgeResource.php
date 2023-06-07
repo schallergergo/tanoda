@@ -24,7 +24,8 @@ class JudgeResource extends JsonResource
             "email" => $this->user->email,
             "phone_number"=>$this->phone_number,
             "company_name"=>$this->company_name,
-            
+            "created_at"=>$this->created_at,
+            "updated_at"=>$this->updated_at,
             ],
         ];
     }

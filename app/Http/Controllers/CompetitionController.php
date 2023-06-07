@@ -144,7 +144,12 @@ class CompetitionController extends Controller
      */
     public function destroy(Competition $competition)
     {
+
         $this->authorize('delete', Competition::class);
+        
+        $teams=$competition->team;
+        if (count($teams)>0) abort(403);
+        
         $competition->delete();
         return response()->json(["success"=>true,"message"=>__("Competition has been deleted")], 200);
     }

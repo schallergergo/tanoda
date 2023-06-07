@@ -15,4 +15,26 @@ class Team extends Model
     ];
 
 
+    public function portfolio(){
+
+        return $this->hasOne(Portfolio::class);
+    }
+
+    public function billing(){
+
+        return $this->hasOne(Billing::class);
+    }
+
+    public function teammember(){
+       return $this->hasMany(TeamMember::class);
+    }
+
+protected static function booted(): void
+    {
+        static::created(function (Team $team) {
+                    Portfolio::create(["team_id"=>$team->id]);
+                    Billing::create(["team_id"=>$team->id]);
+            });
+    }
+
 }

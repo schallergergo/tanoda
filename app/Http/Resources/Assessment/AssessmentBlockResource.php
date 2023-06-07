@@ -19,7 +19,8 @@ class AssessmentBlockResource extends JsonResource
             "type" => $this->type,
             "point" => $this->point,
             "comment"=>$this->comment,
-           
+            "created_at"=>$this->created_at,
+            "updated_at"=>$this->updated_at,
         ];
     }
 }

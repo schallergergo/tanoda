@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
+
 use App\Http\Requests\StorePortfolioRequest;
 use App\Http\Requests\UpdatePortfolioRequest;
+use App\Http\Resources\Portfolio\PortfolioResource;
+use App\Http\Resources\Portfolio\PortfolioCollection;
+
+
 
 class PortfolioController extends Controller
 {
@@ -15,7 +20,7 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        //
+        return new PortfolioCollection(Portfolio::all());
     }
 
     /**
@@ -26,7 +31,11 @@ class PortfolioController extends Controller
      */
     public function store(StorePortfolioRequest $request)
     {
-        //
+
+        
+
+
+      
     }
 
     /**
@@ -37,7 +46,7 @@ class PortfolioController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        //
+        return new PortfolioResource($portfolio);
     }
 
     /**
@@ -49,7 +58,8 @@ class PortfolioController extends Controller
      */
     public function update(UpdatePortfolioRequest $request, Portfolio $portfolio)
     {
-        //
+        $data=$request->validated();
+        $portfolio=Portfolio::update($data);
     }
 
     /**
@@ -62,4 +72,6 @@ class PortfolioController extends Controller
     {
         //
     }
+
+    
 }

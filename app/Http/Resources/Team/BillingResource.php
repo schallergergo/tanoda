@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Assessment;
+namespace App\Http\Resources\Team;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AssessmentResource extends JsonResource
+class BillingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,13 +18,18 @@ class AssessmentResource extends JsonResource
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>[
-            "portfolio_id" => $this->portfolio_id,
-            "judge_id" => $this->judge_id,
-            "total_point"=>$this->total->point,
+            "id"=>$this->id,
+            "team_id"=>$this->team_id,
+            "name"=>$this->name,
+            "country"=>$this->country,
+            "postcode"=>$this->postcode,
+            "city"=>$this->city,
+            "street"=>$this->street,
+            "house_no"=>$this->house_no,
+            "vat_no"=>$this->vat_no,
             "created_at"=>$this->created_at,
             "updated_at"=>$this->updated_at,
             ],
-            "assessment_block"=>new AssessmentBlockCollection($this->block),
         ];
     }
 }

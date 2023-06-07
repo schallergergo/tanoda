@@ -6,8 +6,13 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\JudgeController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\TeamController;
 
 
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\TeamMemberController;
+use App\Http\Controllers\PortfolioUploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalizationController;
 
@@ -47,8 +52,8 @@ Route::get('competition/{competition}/judge/{judge}/remove',[CompetitionControll
 
 
 
-Route::post('competition/{competition}/coverimage/',[CompetitionController::class, 'coverImageUpload'])->name('competition.coverimage');
-Route::post('competition/{competition}/standtemplate/',[CompetitionController::class, 'standTemplateUpload'])->name('competition.standtemplate');
+Route::post('competition/{competition}/upload/coverimage/',[CompetitionController::class, 'coverImageUpload'])->name('competition.coverimage');
+Route::post('competition/{competition}/upload/standtemplate/',[CompetitionController::class, 'standTemplateUpload'])->name('competition.standtemplate');
 
 
 
@@ -59,4 +64,32 @@ Route::post('judge/{judge}/update',[JudgeController::class, 'update'])->name('ju
 Route::get('judge/{judge}/delete',[JudgeController::class, 'destroy'])->name('judge.delete');
 
 
-Route::get('assessment/{portolio}/show',[AssessmentController::class, 'store'])->name('assessment.store');
+
+Route::get('portfolio/index',[PortfolioController::class, 'index'])->name('portfolio.index');
+Route::post('portfolio/{portfolio}/update',[PortfolioController::class, 'store'])->name('portfolio.update');
+Route::get('portfolio/{portfolio}/show',[PortfolioController::class, 'show'])->name('portfolio.show');
+
+
+
+Route::post('portfolio/{portfolio}/upload/logo',[PortfolioUploadController::class, 'logoUpload'])->name('portfolio.logo');
+Route::post('portfolio/{portfolio}/upload/flier',[PortfolioUploadController::class, 'flierUpload'])->name('portfolio.flier');
+Route::post('portfolio/{portfolio}/upload/catalog',[PortfolioUploadController::class, 'catalogUpload'])->name('portfolio.catalog');
+Route::post('portfolio/{portfolio}/upload/businesscard',[PortfolioUploadController::class, 'businessCardUpload'])->name('portfolio.businesscard');
+Route::post('portfolio/{portfolio}/upload/presentation',[PortfolioUploadController::class, 'presentationUpload'])->name('portfolio.presentation');
+Route::post('portfolio/{portfolio}/upload/standimage',[PortfolioUploadController::class, 'standImageUpload'])->name('portfolio.standimage');
+
+
+Route::get('/team/{team}/teammember/index',[TeamMemberController::class, 'index'])->name('teammember.index');
+Route::post('/team/{team}/teammember/store',[TeamMemberController::class, 'store'])->name('teammember.store');
+Route::get('/teammember/{team_member}/show',[TeamMemberController::class, 'show'])->name('teammember.show');
+Route::post('/teammember/{team_member}/update',[TeamMemberController::class, 'update'])->name('teammember.update');
+Route::get('/teammember/{team_member}/delete',[TeamMemberController::class, 'destroy'])->name('teammember.delete');
+
+
+
+Route::get('/billing/{billing}/show',[BillingController::class, 'show'])->name('billing.show');
+
+Route::post('/billing/{billing}/update',[BillingController::class, 'update'])->name('billing.update');
+
+
+Route::get('/team/{team}/show',[TeamController::class, 'show'])->name('billing.show');

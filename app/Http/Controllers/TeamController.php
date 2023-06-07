@@ -3,20 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\Competition;
+use App\Http\Resources\Team\TeamResource;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
-
+use Illuminate\Support\Facades\Auth;
 class TeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -24,9 +17,19 @@ class TeamController extends Controller
      * @param  \App\Http\Requests\StoreTeamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTeamRequest $request)
+    public function store(StoreTeamRequest $request, Competition $competition)
     {
-        //
+
+        
+        $data=$request->validated();
+        $data=array_merge($data,
+            [
+            "organiser_id"=>Auth::user()->id,
+            "competition_id"=>$competition->id,d
+            ]);
+
+        $team=Team::create($data);
+        return response()->json(["success"=>true,"message"=>__("Team has been created"),"data"=>$team], 201);
     }
 
     /**
@@ -37,7 +40,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        return new TeamResource($team);
     }
 
     /**
@@ -49,7 +52,9 @@ class TeamController extends Controller
      */
     public function update(UpdateTeamRequest $request, Team $team)
     {
-        //
+        $data=$request->validated();
+        $team=Team::update($data);
+        return response()->json(["success"=>true,"message"=>__("Team has been updated"),"data"=>$team], 200);
     }
 
     /**
@@ -60,6 +65,7 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        //
+        $team->delete();
+        return response()->json(["success"=>true,"message"=>__("Team has been deleted")], 200);
     }
 }
