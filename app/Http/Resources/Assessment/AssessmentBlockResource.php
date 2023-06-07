@@ -15,12 +15,9 @@ class AssessmentBlockResource extends JsonResource
     public function toArray($request)
     {
          return [
-            
-            "type" => $this->type,
-            "point" => $this->point,
-            "comment"=>$this->comment,
-            "created_at"=>$this->created_at,
-            "updated_at"=>$this->updated_at,
+
+            "data" =>parent::toArray($request),
+
         ];
     }
 }

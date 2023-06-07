@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Competition::class => CompetitionPolicy::class,
+        OnlinePeriod::class => OnlinePeriod::class,
     ];
 
     /**

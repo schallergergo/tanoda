@@ -32,6 +32,33 @@ class CompetitionController extends Controller
     }
 
 
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function registration()
+    {
+        $now= now();
+        $competition=Competition::where("registration_start","<",$now)->where("registration_end",">",$now)->get();
+        return new CompetitionCollection($competition);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function evaluation()
+    {
+        $now= now();
+        $competition=Competition::where("evaluation_start","<",$now)->where("evaluation_end",">",$now)->get();
+        return new CompetitionCollection($competition);
+    }
+
+
+
+
     /**
      * Display the specified resource.
      *

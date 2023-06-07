@@ -17,12 +17,7 @@ class TeamMemberResource extends JsonResource
         return [
             "success"=>true,
             "message"=>__("Record found"),
-            "data" =>[
-            "id"=>$this->id,
-            "team_id"=>$this->team_id,
-             "name"=>$this->name,
-             "email"=>$this->email,
-            ],
+            "data" =>parent::toArray($request),
         ];
     }
 }

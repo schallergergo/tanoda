@@ -17,7 +17,7 @@ class BillingFactory extends Factory
     public function definition()
     {
         return [
-            //
+            
         ];
     }
 }

@@ -7,20 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Contracts\Validation\Validator;
-
-class UpdateContactRequest extends FormRequest
+class StoreOnlinePeriodRequest extends FormRequest
 {
-/**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
+       /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -28,9 +17,8 @@ class UpdateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ['required',"string",'max:255'],
-            "email"=>['required',"string","email",'max:255'],
-            "phone_number"=>['required',"string","email",'max:255'],
+            "start"=>['required',"date_format:Y-m-d H:i:s"],
+            "end"=>['required',"date_format:Y-m-d H:i:s"],
         ];
     }
 

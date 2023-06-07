@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,6 +45,10 @@ class User extends Authenticatable
 
     public function judge(){
         return  $this->hasOne(Judge::class);
+    }
+
+    public function team(){
+        return  $this->hasOne(Team::class);
     }
 
     public function isAdmin(){

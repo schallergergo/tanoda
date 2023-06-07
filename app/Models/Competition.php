@@ -26,4 +26,8 @@ class Competition extends Model
     public function team(){
         return $this->hasMany(Team::class);
     }
+
+    public function contact(){
+        return $this->hasMany(contact::class);
+    }
 }

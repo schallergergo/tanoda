@@ -8,7 +8,8 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\JudgeController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\TeamController;
-
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OnlinePeriodController;
 
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\TeamMemberController;
@@ -43,6 +44,8 @@ Route::post('/auth/logout', [AuthController::class, 'logoutUser']);
 
 Route::get('competition/{competition}/show',[CompetitionController::class, 'show'])->name('competition.show');
 Route::get('competition/index',[CompetitionController::class, 'index'])->name('competition.index');
+Route::get('competition/index/registration',[CompetitionController::class, "registration"])->name('competition.registration');
+Route::get('competition/index/evaluation',[CompetitionController::class, "evaluation"])->name('competition.evaluation');
 Route::post('competition/store',[CompetitionController::class, 'store'])->name('competition.store');
 Route::patch('competition/{competition}/update',[CompetitionController::class, 'update'])->name('competition.update');
 Route::get('competition/{competition}/delete',[CompetitionController::class, 'destroy'])->name('competition.delete');
@@ -50,6 +53,8 @@ Route::get('competition/{competition}/delete',[CompetitionController::class, 'de
 Route::get('competition/{competition}/judge/{judge}/add',[CompetitionController::class, 'addJudge'])->name('competition.addjudge');
 Route::get('competition/{competition}/judge/{judge}/remove',[CompetitionController::class, 'removeJudge'])->name('competition.removejudge');
 
+
+Route::get('/competition/{competition}/contact/index',[ContactController::class, 'index'])->name('contact.index');
 
 
 Route::post('competition/{competition}/upload/coverimage/',[CompetitionController::class, 'coverImageUpload'])->name('competition.coverimage');
@@ -93,3 +98,10 @@ Route::post('/billing/{billing}/update',[BillingController::class, 'update'])->n
 
 
 Route::get('/team/{team}/show',[TeamController::class, 'show'])->name('billing.show');
+
+
+Route::get('/contact/{contact}/show',[ContactController::class, 'show'])->name('contact.show');
+
+
+Route::post('/onlineperiod/store',[OnlinePeriodController::class, 'store'])->name('onlineperiod.store');
+Route::post('/onlineperiod/{online_period}/delete',[OnlinePeriodController::class, 'destroy'])->name('onlineperiod.delete');

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Judge;
-
+namespace App\Http\Resources\OnlinePeriod;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JudgeResource extends JsonResource
+class OnlinePeriodResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +14,8 @@ class JudgeResource extends JsonResource
      */
     public function toArray($request)
     {
-
-         return [
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
-        ];
     }
 }

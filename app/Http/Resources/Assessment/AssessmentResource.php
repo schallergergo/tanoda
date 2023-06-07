@@ -17,13 +17,7 @@ class AssessmentResource extends JsonResource
         return [
             "success"=>true,
             "message"=>__("Record found"),
-            "data" =>[
-            "portfolio_id" => $this->portfolio_id,
-            "judge_id" => $this->judge_id,
-            "total_point"=>$this->total->point,
-            "created_at"=>$this->created_at,
-            "updated_at"=>$this->updated_at,
-            ],
+            "data" =>parent::toArray($request),
             "assessment_block"=>new AssessmentBlockCollection($this->block),
         ];
     }

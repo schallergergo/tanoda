@@ -16,16 +16,9 @@ class TeamResource extends JsonResource
     {
         return [
             
-            "id"=>$this->id,
-            "company_name"=>$this->company_name,
-            "school_name"=>$this->school_name,
-            "school_address"=>$this->school_address,
-            "scope_of_activities"=>$this->scope_of_activities,
-            "available_in_hungarian"=>$this->available_in_hungarian,
-            "available_in_english"=>$this->available_in_english,
-            "available_in_german"=>$this->available_in_german,
-            "created_at"=>$this->created_at,
-            "updated_at"=>$this->updated_at,
+            "success"=>true,
+            "message"=>__("Record found"),
+            "data" =>parent::toArray($request),
 
         ];
     }

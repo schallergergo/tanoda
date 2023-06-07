@@ -32,7 +32,10 @@ class BillingController extends Controller
      */
     public function update(UpdateBillingRequest $request, Billing $billing)
     {
-        //
+        //$this->authorize('update', Billing::class);
+        $data=$request->validated();
+        $competition=$competition->update($data);
+        return response()->json(["success"=>true,"message"=>__("Billing data has been updated"),"data"=>$billing], 200);
     }
 
     

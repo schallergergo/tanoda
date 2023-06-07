@@ -15,21 +15,9 @@ class BillingResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "success"=>true,
+           "success"=>true,
             "message"=>__("Record found"),
-            "data" =>[
-            "id"=>$this->id,
-            "team_id"=>$this->team_id,
-            "name"=>$this->name,
-            "country"=>$this->country,
-            "postcode"=>$this->postcode,
-            "city"=>$this->city,
-            "street"=>$this->street,
-            "house_no"=>$this->house_no,
-            "vat_no"=>$this->vat_no,
-            "created_at"=>$this->created_at,
-            "updated_at"=>$this->updated_at,
-            ],
+            "data" =>parent::toArray($request),
         ];
     }
 }

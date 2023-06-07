@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Contact>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OnlinePeriod>
  */
-class ContactFactory extends Factory
+class OnlinePeriodFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,10 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-        "competition_id"=>1,
-            "name"=>fake()->name(),
-            "email"=>fake()->email(),
-            "phone_number"=>fake()->phoneNumber(),
+            "team_id"=>1,
+            "start"=>fake()->datetime(),
+            "end"=>fake()->datetime(),
+
         ];
     }
 }

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Competition;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
+
+use App\Http\Resources\Contact\ContactResource;
+use App\Http\Resources\Contact\ContactCollection;
+
 
 class ContactController extends Controller
 {
@@ -13,9 +18,11 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Competition $competition)
     {
-        //
+        $contact = Contact::where("competition_id",$competition->id)->get();
+        
+        return new ContactCollection($contact);
     }
 
     /**
@@ -24,9 +31,16 @@ class ContactController extends Controller
      * @param  \App\Http\Requests\StoreContactRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreContactRequest $request)
+    public function store(StoreContactRequest $request,Competition $competition)
     {
-        //
+        
+
+        $data = $request->validated();
+        $data = array_merge($data, ["competition_id"=>$competition->id]);
+
+        $contact = Contact::create($data);
+
+        return response()->json(["success"=>true,"message"=>__("Competition has been created"),"data"=>$contact], 201);
     }
 
     /**
@@ -37,7 +51,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return new ContactResource($contact);
     }
 
     /**
@@ -49,7 +63,11 @@ class ContactController extends Controller
      */
     public function update(UpdateContactRequest $request, Contact $contact)
     {
-        //
+        $data = $request->validated();
+
+        $contact = $contact->update($data);
+
+        return response()->json(["success"=>true,"message"=>__("Competition has been updated"),"data"=>$contact], 200);
     }
 
     /**
@@ -60,6 +78,10 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+                
+
+        $contact = $contact->delete();
+
+        return response()->json(["success"=>true,"message"=>__("Competition has been deleted"),"data"=>$contact], 200);
     }
 }

@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('online_periods', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("competition_id");
-            $table->string("name");
-            $table->string("email");
-            $table->string("phone_number");
+            $table->unsignedBigInteger("team_id");
+            $table->datetime("start");
+            $table->datetime("end");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('online_periods');
     }
 };

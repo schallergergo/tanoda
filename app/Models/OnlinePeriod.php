@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class Contact extends Model
+class OnlinePeriod extends Model
 {
-   use HasFactory, SoftDeletes, HasApiTokens;
+    use HasFactory, SoftDeletes, HasApiTokens;
 
+    protected $guarded = [
 
-   public function competition(){
-       $this->belongsTo(Competition::class);
-   }
+    ];
+
+    public function team(){
+
+        return $this->belongsTo(Team::class);
+        
+    }
 }
