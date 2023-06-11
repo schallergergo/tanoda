@@ -127,27 +127,45 @@ class CompetitionController extends Controller
     }
 
     public function addJudge(Competition $competition, Judge $judge){
-        $this->authorize('update', Competition::class);
+        //$this->authorize('update', Competition::class);
         $judges=$competition->judge;
         foreach ($judges as $j){
             if ($judge->id == $j->id) 
                 return response()->json(["success"=>false,"message"=>Lang::get("Judge already attached")], 200);
             }
         $competition->judge()->attach($judge->id);
+        $this->createAssessment($competition,$judge);
 
         return response()->json(["success"=>true,"message"=>Lang::get("Judge attached")], 200);
     }
 
+    private function createAssessment(Competition $competition, Judge $judge){
+        $portfolios =$competition->portfolio;
+        foreach ($portfolios as $portfolio){
+            $data=["judge_id"=>$judge->id,"portfolio_id"=>$portfolio->id];
+            $assessment = Assessment::withTrashed()->where($data)->get();
+            if (count($assessment)==0) Assessment::create($data);
+            else $assessment->restore();
+        }
+
+    }
     public function removeJudge(Competition $competition, Judge $judge){
         //TODO remove
         //$this->authorize('update', Competition::class);
 
         $competition->judge()->detach($judge->id);
+        $this->removeAssessment($competition,$judge);
         return response()->json(["success"=>true,"message"=>Lang::get("Judge detached")], 200);
         
     }
-
-
+    private function removeAssessment(Competition $competition, Judge $judge){
+        $portfolios =$competition->portfolio;
+        foreach ($portfolios as $portfolio){
+            $data=["judge_id"=>$judge->id,"portfolio_id"=>$portfolio->id];
+            $assessment = Assessment::where($data)->get();
+            $assessment->delete();
+        }
+}
     /**
      * Update the specified resource in storage.
      *
@@ -171,8 +189,7 @@ class CompetitionController extends Controller
      */
     public function destroy(Competition $competition)
     {
-
-        $this->authorize('delete', Competition::class);
+        $this->authorize('delete', $competition);
         
         $teams=$competition->team;
         if (count($teams)>0) abort(403);

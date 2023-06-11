@@ -68,7 +68,7 @@ class OnlinePeriodPolicy
     public function delete(User $user, OnlinePeriod $onlinePeriod)
     {
         
-        if ($user->role=="admin") return true;
+        if ($user->isAdmin()) return true;
         if ($user->id==$onlinePeriod->team->user_id) return true;
 
 

@@ -1,24 +1,26 @@
 <?php
 
 namespace Tests\Feature\Auth;
-
+use  Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public function test_new_users_can_register(): void
     {
-        $response = $this->post('/register', [
+        $response = $this->post('api/auth/register', [
             'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'email' => fake()->email(),
+            'password' => 'password1',
+            'password_confirmation' => 'password1',
         ]);
-
-        $this->assertAuthenticated();
+        //dd($response);
+        $response->assertStatus(200);
+        //$this->assertAuthenticated();
+        $data=$response["data"];
         $response->assertNoContent();
     }
 }

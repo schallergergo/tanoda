@@ -25,7 +25,7 @@ class AssessmentController extends Controller
         $user_id=1;
         $data= ['judge_id' => $user_id,'portfolio_id' =>$portfolio->id];
         $assessment = Assessment::where($data)->get();
-        if (count($assessment)===0) $assessment = Assessment::create($data);
+        if (count($assessment)==0) $assessment = Assessment::create($data);
 
 
         return response()->json([

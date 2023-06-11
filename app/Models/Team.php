@@ -36,5 +36,4 @@ protected static function booted(): void
                     Billing::create(["team_id"=>$team->id]);
             });
     }
-
 }

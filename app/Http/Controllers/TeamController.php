@@ -29,6 +29,7 @@ class TeamController extends Controller
             ]);
 
         $team=Team::create($data);
+        
         return response()->json(["success"=>true,"message"=>__("Team has been created"),"data"=>$team], 201);
     }
 

@@ -19,8 +19,8 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
- 
-Route::get('/database/refresh', function (string $user) {
-    $exitCode = Artisan::call('migrate:fresh --seed');
-    return $exitCode;
-});
+
+
+Route::get('/dashboard', function () {
+    return response()->json(["success"=>false,"message"=>"Already signed in."], 400);
+})->name("dashboard");
