@@ -22,7 +22,7 @@ class UserController extends Controller
     public function createUserwithRole(Request $request)
     {
         try {
-            //Validated
+            //Validated//
             $validateUser = Validator::make($request->all(), 
             [
                 'name' => 'required',

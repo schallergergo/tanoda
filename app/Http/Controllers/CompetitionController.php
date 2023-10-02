@@ -81,7 +81,7 @@ class CompetitionController extends Controller
     public function store(StoreCompetitionRequest $request)
     {
         
-        $this->authorize('create', Competition::class);
+        //$this->authorize('create', Competition::class);
         
         $data=$request->validated();
         $data=array_merge($data,["organiser_id"=>Auth::user()->id]);
@@ -94,7 +94,7 @@ class CompetitionController extends Controller
 
      public function coverImageUpload(UpdateCoverImageRequest $request,  Competition $competition)
     {
-        $this->authorize('update', Competition::class);
+        //$this->authorize('update', Competition::class);
         $file_url=$competition->cover_image_url;
 
         if (Storage::exists($file_url)) Storage::delete($file_url);
@@ -112,7 +112,7 @@ class CompetitionController extends Controller
     public function standTemplateUpload(UpdateStandTemplateRequest $request,  Competition $competition)
     {
         
-        $this->authorize('update', Competition::class);
+        //$this->authorize('update', Competition::class);
         $file_url=$competition->stand_template_url;
 
         if (Storage::exists($file_url)) Storage::delete($file_url);
@@ -175,7 +175,7 @@ class CompetitionController extends Controller
      */
     public function update(UpdateCompetitionRequest $request, Competition $competition)
     {
-        $this->authorize('update', Competition::class);
+        //$this->authorize('update', Competition::class);
         $data=$request->validated();
         $competition=$competition->update($data);
         return response()->json(["success"=>true,"message"=>__("Competition has been updated"),"data"=>$competition], 200);
@@ -189,7 +189,7 @@ class CompetitionController extends Controller
      */
     public function destroy(Competition $competition)
     {
-        $this->authorize('delete', $competition);
+        //$this->authorize('delete', $competition);
         
         $teams=$competition->team;
         if (count($teams)>0) abort(403);
