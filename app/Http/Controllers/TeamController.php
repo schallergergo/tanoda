@@ -8,6 +8,7 @@ use App\Http\Resources\Team\TeamResource;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class TeamController extends Controller
 {
 
@@ -19,7 +20,7 @@ class TeamController extends Controller
      */
     public function store(StoreTeamRequest $request, Competition $competition)
     {
-
+        Log::channel('single')->info("team");
         
         $data=$request->validated();
         $data=array_merge($data,
@@ -41,6 +42,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+         Log::channel('single')->info("team");
         return new TeamResource($team);
     }
 

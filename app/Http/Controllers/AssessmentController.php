@@ -6,6 +6,7 @@ use App\Models\Assessment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
+use Illuminate\Support\Facades\Log;
 
 class AssessmentController extends Controller
 {
@@ -21,6 +22,7 @@ class AssessmentController extends Controller
 
     public function edit(Portfolio $portfolio)
     {
+        Log::channel('single')->info("assessment.edit");
         $user=Auth::user();
         $user_id=1;
         $data= ['judge_id' => $user_id,'portfolio_id' =>$portfolio->id];
@@ -53,7 +55,7 @@ class AssessmentController extends Controller
      */
     public function show(Assessment $assessment)
     {
-        
+        Log::channel('single')->info("assessment.show");
         return response()->json([
                 'success' => true,
                 'message' => 'Assessment found',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Competition;
 use App\Models\Judge;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\StoreCompetitionRequest;
 use App\Http\Requests\UpdateCoverImageRequest;
@@ -39,6 +40,7 @@ class CompetitionController extends Controller
      */
     public function registration()
     {
+        Log::channel('single')->info("competition.registration");
         $now= now();
         $competition=Competition::where("registration_start","<",$now)->where("registration_end",">",$now)->get();
         return new CompetitionCollection($competition);
@@ -51,6 +53,7 @@ class CompetitionController extends Controller
      */
     public function evaluation()
     {
+        Log::channel('single')->info("assessment.show");
         $now= now();
         $competition=Competition::where("evaluation_start","<",$now)->where("evaluation_end",">",$now)->get();
         return new CompetitionCollection($competition);
@@ -67,7 +70,7 @@ class CompetitionController extends Controller
      */
     public function show(Competition $competition)
     {
-
+        Log::channel('single')->info("competition.show");
           return new CompetitionResource($competition);
     }
 
@@ -82,6 +85,7 @@ class CompetitionController extends Controller
     {
         
         //$this->authorize('create', Competition::class);
+        Log::channel('single')->info("competition.store");
         
         $data=$request->validated();
         $data=array_merge($data,["organiser_id"=>Auth::user()->id]);
@@ -96,7 +100,6 @@ class CompetitionController extends Controller
     {
         //$this->authorize('update', Competition::class);
         $file_url=$competition->cover_image_url;
-
         if (Storage::exists($file_url)) Storage::delete($file_url);
 
         $data=$request->validated();
