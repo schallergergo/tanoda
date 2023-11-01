@@ -40,7 +40,7 @@ class CompetitionController extends Controller
      */
     public function registration()
     {
-        Log::channel('single')->info("competition.registration");
+        
         $now= now();
         $competition=Competition::where("registration_start","<",$now)->where("registration_end",">",$now)->get();
         return new CompetitionCollection($competition);
