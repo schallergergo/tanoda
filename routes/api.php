@@ -78,6 +78,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+   Route::middleware('cors')->group(function () {
 
 Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
 
@@ -151,3 +152,5 @@ Route::get('/contact/{contact}/show',[ContactController::class, 'show'])->name('
 
 Route::post('/onlineperiod/store',[OnlinePeriodController::class, 'store'])->name('onlineperiod.store');
 Route::post('/onlineperiod/{online_period}/delete',[OnlinePeriodController::class, 'destroy'])->name('onlineperiod.delete');
+
+});
