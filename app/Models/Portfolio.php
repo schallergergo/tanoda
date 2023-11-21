@@ -19,4 +19,5 @@ class Portfolio extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
 }

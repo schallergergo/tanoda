@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessment;
+use App\Models\Competition;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
@@ -15,9 +16,15 @@ class AssessmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Competition $competition)
     {
-        //
+        $teams = $competition->team;
+        $assessments = collect();
+        foreach($teams as $team){
+            $assessments->add($team->assessment);
+        }
+        
+        return $assessments;
     }
 
     public function edit(Portfolio $portfolio)

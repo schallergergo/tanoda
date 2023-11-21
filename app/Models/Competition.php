@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,4 +31,7 @@ class Competition extends Model
     public function contact(){
         return $this->hasMany(contact::class);
     }
+
+    
+
 }

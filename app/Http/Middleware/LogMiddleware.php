@@ -17,7 +17,7 @@ class LogMiddleware
      */
     public function handle(Request $request, Closure $next)
     {   
-        Log::channel('project')->info($request->path());
+
         return $next($request);
         
     }

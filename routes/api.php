@@ -74,11 +74,11 @@ Route::get('/dashboard', function () {
     return 'Hello World';
 })->name("dashboard");
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/user', function (Request $request) {
+    return ["user" =>$request->user()];
 });
 
-   Route::middleware('cors')->group(function () {
+
 
 Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
 
@@ -91,11 +91,17 @@ Route::get('/auth/logout', [AuthController::class, 'logoutUser']);
 
 Route::get('competition/{competition}/show',[CompetitionController::class, 'show'])->name('competition.show');
 Route::get('competition/index',[CompetitionController::class, 'index'])->name('competition.index');
-Route::get('competition/index/registration',[CompetitionController::class, "registration"])->name('competition.registration');
-Route::get('competition/index/evaluation',[CompetitionController::class, "evaluation"])->name('competition.evaluation');
+
+//Frissült
+Route::get('competition/index/registrationOpen',[CompetitionController::class, "registrationOpen"])->name('competition.registration');
+//Frissült
+Route::get('competition/index/evaluationOpen',[CompetitionController::class, "evaluationOpen"])->name('competition.evaluation');
 Route::post('competition/store',[CompetitionController::class, 'store'])->name('competition.store');
 Route::patch('competition/{competition}/update',[CompetitionController::class, 'update'])->name('competition.update');
 Route::get('competition/{competition}/delete',[CompetitionController::class, 'destroy'])->name('competition.delete');
+
+
+
 
 Route::get('competition/{competition}/judge/{judge}/add',[CompetitionController::class, 'addJudge'])->name('competition.addjudge');
 Route::get('competition/{competition}/judge/{judge}/remove',[CompetitionController::class, 'removeJudge'])->name('competition.removejudge');
@@ -117,7 +123,7 @@ Route::get('judge/{judge}/delete',[JudgeController::class, 'destroy'])->name('ju
 
 
 
-Route::get('portfolio/index',[PortfolioController::class, 'index'])->name('portfolio.index');
+
 Route::post('portfolio/{portfolio}/update',[PortfolioController::class, 'store'])->name('portfolio.update');
 Route::get('portfolio/{portfolio}/show',[PortfolioController::class, 'show'])->name('portfolio.show');
 
@@ -131,6 +137,7 @@ Route::post('portfolio/{portfolio}/upload/presentation',[PortfolioUploadControll
 Route::post('portfolio/{portfolio}/upload/standimage',[PortfolioUploadController::class, 'standImageUpload'])->name('portfolio.standimage');
 
 
+Route::get('/team/{team}/show',[TeamController::class, 'show'])->name('team.show');
 Route::get('/team/{team}/teammember/index',[TeamMemberController::class, 'index'])->name('teammember.index');
 Route::post('/team/{team}/teammember/store',[TeamMemberController::class, 'store'])->name('teammember.store');
 Route::get('/teammember/{team_member}/show',[TeamMemberController::class, 'show'])->name('teammember.show');
@@ -144,13 +151,26 @@ Route::get('/billing/{billing}/show',[BillingController::class, 'show'])->name('
 Route::post('/billing/{billing}/update',[BillingController::class, 'update'])->name('billing.update');
 
 
-Route::get('/team/{team}/show',[TeamController::class, 'show'])->name('billing.show');
 
 
+
+Route::get('competition/{competition}/team/index',[TeamController::class, 'index'])->name('competition.teamIndex');
+Route::post('competition/{competition}/team/store',[TeamController::class, 'store'])->name('competition.teamStore');
+
+
+
+//Contact?????
 Route::get('/contact/{contact}/show',[ContactController::class, 'show'])->name('contact.show');
+
+Route::get('/contact/{contact}/update',[ContactController::class, 'show'])->name('contact.show');
 
 
 Route::post('/onlineperiod/store',[OnlinePeriodController::class, 'store'])->name('onlineperiod.store');
 Route::post('/onlineperiod/{online_period}/delete',[OnlinePeriodController::class, 'destroy'])->name('onlineperiod.delete');
 
-});
+
+Route::get('/competition/{competition}/assessment/index',[AssessmentController::class, 'index'])->name('assessment.index');
+Route::get('/assessment/{assessment}/show',[AssessmentController::class, 'show'])->name('assessment.show');
+Route::post('/assessment/{assessment}/update',[AssessmentController::class, 'update'])->name('assessment.update');
+Route::get('/assessment/{assessment}/delete',[AssessmentController::class, 'destroy'])->name('assessment.delete');
+

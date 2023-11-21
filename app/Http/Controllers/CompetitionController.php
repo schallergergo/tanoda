@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Competition;
 use App\Models\Judge;
+use App\Models\Assessment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -38,7 +39,7 @@ class CompetitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function registration()
+    public function registrationOpen()
     {
         
         $now= now();
@@ -51,13 +52,15 @@ class CompetitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function evaluation()
+    public function evaluationOpen()
     {
         Log::channel('single')->info("assessment.show");
         $now= now();
         $competition=Competition::where("evaluation_start","<",$now)->where("evaluation_end",">",$now)->get();
         return new CompetitionCollection($competition);
     }
+
+    
 
 
 
@@ -143,12 +146,12 @@ class CompetitionController extends Controller
     }
 
     private function createAssessment(Competition $competition, Judge $judge){
-        $portfolios =$competition->portfolio;
-        foreach ($portfolios as $portfolio){
-            $data=["judge_id"=>$judge->id,"portfolio_id"=>$portfolio->id];
+        $teams =$competition->team;
+        foreach ($teams as $team){
+            $data=["judge_id"=>$judge->id,"team_id"=>$team->id];
             $assessment = Assessment::withTrashed()->where($data)->get();
             if (count($assessment)==0) Assessment::create($data);
-            else $assessment->restore();
+            else $assessment->first()->restore();
         }
 
     }
@@ -162,11 +165,11 @@ class CompetitionController extends Controller
         
     }
     private function removeAssessment(Competition $competition, Judge $judge){
-        $portfolios =$competition->portfolio;
-        foreach ($portfolios as $portfolio){
-            $data=["judge_id"=>$judge->id,"portfolio_id"=>$portfolio->id];
-            $assessment = Assessment::where($data)->get();
-            $assessment->delete();
+        $teams =$competition->team;
+        foreach ($teams as $team){
+            $data=["judge_id"=>$judge->id,"team_id"=>$team->id];
+            $assessment = Assessment::where($data)->first();
+            if ($assessment !=null) $assessment->delete();
         }
 }
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("portfolio_id");
+            $table->unsignedBigInteger("team_id");
             $table->unsignedBigInteger("judge_id");
             $table->integer("total_point")->default(0);
             $table->softDeletes();

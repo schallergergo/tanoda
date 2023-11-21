@@ -19,6 +19,8 @@ class TeamResource extends JsonResource
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
+            "portfolio_id"=>$this->portfolio->id,
+            "billing_id"=>$this->billing->id,
 
         ];
     }

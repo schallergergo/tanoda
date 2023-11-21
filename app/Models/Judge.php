@@ -24,6 +24,6 @@ class Judge extends Model
 
                 return $this->belongsToMany(Competition::class);
                 
-            }
+        }
 
 }

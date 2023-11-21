@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Billing;
+use App\Models\Team;
 use App\Http\Requests\StoreBillingRequest;
 use App\Http\Requests\UpdateBillingRequest;
 Use App\Http\Requests\Team\BillingResource;
@@ -20,6 +21,7 @@ class BillingController extends Controller
      */
     public function show(Billing $billing)
     {
+
         return new BillingResource($billing);
     }
 

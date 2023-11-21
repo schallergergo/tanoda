@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Models\Competition;
 use App\Http\Resources\Team\TeamResource;
+use App\Http\Resources\Team\TeamCollection;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 class TeamController extends Controller
 {
+
+    public function index(Competition $competition)
+    {
+        
+
+        $competitions=Team::where("competition_id",$competition->id)->get();
+        return new TeamCollection($competitions);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -20,13 +29,13 @@ class TeamController extends Controller
      */
     public function store(StoreTeamRequest $request, Competition $competition)
     {
-        Log::channel('single')->info("team");
+
         
         $data=$request->validated();
         $data=array_merge($data,
             [
-            "organiser_id"=>Auth::user()->id,
-            "competition_id"=>$competition->id,d
+            "user_id"=>1,//Auth::user()->id,
+            "competition_id"=>$competition->id,
             ]);
 
         $team=Team::create($data);
