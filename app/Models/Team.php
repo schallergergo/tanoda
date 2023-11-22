@@ -36,6 +36,10 @@ class Team extends Model
         return $this->hasOne(Assessment::class);
     }
 
+    public function onlineperiod(){
+        return $this->hasMany(OnlinePeriod::class);
+    }
+
 protected static function booted(): void
     {
         static::created(function (Team $team) {

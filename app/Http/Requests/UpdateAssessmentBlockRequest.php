@@ -3,19 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateAssessmentBlockRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +16,25 @@ class UpdateAssessmentBlockRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "point" =>["required","integer","min:0","max:10"],
+            "comment"=>["required","string","max:256"],
         ];
+    }
+
+
+ public function failedValidation(Validator $validator)
+
+    {
+
+        throw new HttpResponseException(response()->json([
+
+            'status'   => 400,
+
+            'message'   => __('Validation errors'),
+
+            'data'      => $validator->errors()
+
+        ]));
+
     }
 }

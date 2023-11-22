@@ -78,7 +78,7 @@ class AssessmentController extends Controller
      */
     public function update(UpdateAssessmentRequest $request, Assessment $assessment)
     {
-        
+       
     }
 
     /**

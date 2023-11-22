@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\AssessmentBlockController;
 use App\Http\Controllers\JudgeController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\TeamController;
@@ -173,4 +174,4 @@ Route::get('/competition/{competition}/assessment/index',[AssessmentController::
 Route::get('/assessment/{assessment}/show',[AssessmentController::class, 'show'])->name('assessment.show');
 Route::post('/assessment/{assessment}/update',[AssessmentController::class, 'update'])->name('assessment.update');
 Route::get('/assessment/{assessment}/delete',[AssessmentController::class, 'destroy'])->name('assessment.delete');
-
+Route::post('/assessmentblock/{assessment_block}/update',[AssessmentBlockController::class, 'update'])->name('assessmentblock.update');

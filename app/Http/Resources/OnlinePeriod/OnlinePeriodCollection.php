@@ -18,5 +18,6 @@ class OnlinePeriodCollection extends ResourceCollection
  "success"=>true,
             "message"=>__("Record found"),
             'data' => $this->collection,
+        ];
     }
 }

@@ -14,8 +14,10 @@ class OnlinePeriodResource extends JsonResource
      */
     public function toArray($request)
     {
+        return [
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
+            ];
     }
 }

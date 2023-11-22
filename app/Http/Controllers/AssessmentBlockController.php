@@ -49,7 +49,11 @@ class AssessmentBlockController extends Controller
      */
     public function update(UpdateAssessmentBlockRequest $request, AssessmentBlock $assessmentBlock)
     {
-        //
+
+        $data = $request->validated();
+        $assessmentBlock->update($data);
+
+        return response()->json(["success"=>true,"message"=>__("Updated")], 200);
     }
 
     /**

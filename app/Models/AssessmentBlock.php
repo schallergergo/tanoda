@@ -19,4 +19,16 @@ class AssessmentBlock extends Model
         return $this->belongsTo(Assessment::class);
         
     }
+
+    protected static function booted(): void
+    {
+        static::updated(function (AssessmentBlock $block) {
+
+            $assessment = $block->assessment;
+            $assessment->total_point = $assessment->block->sum("point");
+            $assessment->save();
+            
+
+        });
+    }
 }
