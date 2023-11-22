@@ -159,7 +159,7 @@ Route::post('competition/{competition}/team/store',[TeamController::class, 'stor
 
 
 
-//Contact?????
+
 Route::get('/contact/{contact}/show',[ContactController::class, 'show'])->name('contact.show');
 
 Route::get('/contact/{contact}/update',[ContactController::class, 'show'])->name('contact.show');

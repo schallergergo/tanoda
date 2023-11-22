@@ -14,8 +14,10 @@ class ContactResource extends JsonResource
      */
     public function toArray($request)
     {
-        "success"=>true,
+        return [
+            "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
+        ];
     }
 }

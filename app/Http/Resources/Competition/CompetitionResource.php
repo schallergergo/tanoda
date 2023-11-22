@@ -5,6 +5,7 @@ namespace App\Http\Resources\Competition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\Contact\ContactCollection;
 use App\Http\Resources\Judge\JudgeCollection;
 class CompetitionResource extends JsonResource
 {
@@ -20,6 +21,8 @@ class CompetitionResource extends JsonResource
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
+            "contacts"=>new ContactCollection($this->contact),
+
         ];
     }
 }

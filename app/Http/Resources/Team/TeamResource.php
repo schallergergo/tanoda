@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Team;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Portfolio\PortfolioResource;
+use App\Http\Resources\Team\Billing;
 
 class TeamResource extends JsonResource
 {
@@ -19,8 +21,8 @@ class TeamResource extends JsonResource
             "success"=>true,
             "message"=>__("Record found"),
             "data" =>parent::toArray($request),
-            "portfolio_id"=>$this->portfolio->id,
-            "billing_id"=>$this->billing->id,
+            "portfolio"=>new PortfolioResource($this->portfolio),
+            "billing_id"=>new BillingResource($this->billing),
 
         ];
     }
