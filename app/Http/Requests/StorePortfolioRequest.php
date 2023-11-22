@@ -19,6 +19,7 @@ class StorePortfolioRequest extends FormRequest
             "motto"=>['required',"string",'max:255'],
             "company_description"=>['required',"string",'max:150 '],
             "webpage"=>['required',"url",'max:255'],
+            "meet_url"=>['required',"url",'max:255'],
         ];
     }
 

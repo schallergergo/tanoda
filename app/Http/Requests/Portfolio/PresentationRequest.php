@@ -11,7 +11,7 @@ class PresentationRequest extends FormRequest
     public function rules()
     {
         return [
-             "presentation"=> ["required","file",'mimes:ppt,pptx'],
+             "presentation"=> ["required","file",],
         ];
     }
 

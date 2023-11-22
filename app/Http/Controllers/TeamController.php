@@ -55,6 +55,8 @@ class TeamController extends Controller
         return new TeamResource($team);
     }
 
+    
+
     /**
      * Update the specified resource in storage.
      *

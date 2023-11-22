@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("logo")->nullable();
             $table->string("flyer")->nullable();
             $table->string("webpage")->nullable();
+            $table->string("meet_url")->nullable();
             $table->string("catalog")->nullable();
             $table->string("business_card")->nullable();
             $table->string("presentation")->nullable();

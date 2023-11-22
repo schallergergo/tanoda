@@ -79,6 +79,10 @@ Route::get('/user', function (Request $request) {
     return ["user" =>$request->user()];
 });
 
+Route::get('/user/team', [UserController::class, 'team'])->name('user.team');
+Route::get('/user/judge', [UserController::class, 'judge'])->name('user.judge');
+Route::get('/user/judge/openforeval', [UserController::class, 'judgeOpenForEvaluation'])->name('user.judgeopenforeval');
+Route::get('/user/organiser', [UserController::class, 'organiser'])->name('user.organiser');
 
 
 Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
@@ -87,7 +91,7 @@ Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
 
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
-Route::get('/auth/logout', [AuthController::class, 'logoutUser']);
+Route::post('/auth/logout', [AuthController::class, 'logoutUser']);
 
 
 Route::get('competition/{competition}/show',[CompetitionController::class, 'show'])->name('competition.show');
