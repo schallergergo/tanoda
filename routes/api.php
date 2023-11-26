@@ -79,6 +79,19 @@ Route::get('/user', function (Request $request) {
     return ["user" =>$request->user()];
 });
 
+
+
+
+Route::post('/auth/register', [AuthController::class, 'createUser']);
+Route::post('/auth/login', [AuthController::class, 'loginUser']);
+Route::post('/auth/logout', [AuthController::class, 'logoutUser']);
+
+
+
+//////// sanctum middleware /////
+
+Route::middleware('sanctum')->group(function () {
+
 Route::get('/user/team', [UserController::class, 'team'])->name('user.team');
 Route::get('/user/judge', [UserController::class, 'judge'])->name('user.judge');
 Route::get('/user/judge/openforeval', [UserController::class, 'judgeOpenForEvaluation'])->name('user.judgeopenforeval');
@@ -89,9 +102,6 @@ Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
 
 
 
-Route::post('/auth/register', [AuthController::class, 'createUser']);
-Route::post('/auth/login', [AuthController::class, 'loginUser']);
-Route::post('/auth/logout', [AuthController::class, 'logoutUser']);
 
 
 Route::get('competition/{competition}/show',[CompetitionController::class, 'show'])->name('competition.show');
@@ -179,3 +189,6 @@ Route::get('/assessment/{assessment}/show',[AssessmentController::class, 'show']
 Route::post('/assessment/{assessment}/update',[AssessmentController::class, 'update'])->name('assessment.update');
 Route::get('/assessment/{assessment}/delete',[AssessmentController::class, 'destroy'])->name('assessment.delete');
 Route::post('/assessmentblock/{assessment_block}/update',[AssessmentBlockController::class, 'update'])->name('assessmentblock.update');
+
+
+});

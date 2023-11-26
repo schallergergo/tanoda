@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -43,7 +44,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            $request->session()->regenerate();
+
 
             return response()->json([
                 'success' => true,
@@ -89,8 +90,10 @@ class AuthController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
-             $request->session()->regenerate();
+            $token = $user->createToken(Str::random(40));
             return response()->json([
+                'user'=>$user,
+                'token'=> $token->plainTextToken,
                 'status' => 200,
                 'message' => 'User Logged In Successfully',
             ], 200);
@@ -108,23 +111,26 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
-    public function logoutUser()
+    public function logoutUser(Request $request)
     {
         try {
 
-            Session::flush();
-        
-            Auth::logout();
-            return response()->json([
-                'status' => 200,
-                'message' => 'User Logged Out Successfully',
-            ], 200);
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|exists:users,email'
+            ]);
 
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage()
-            ], 500);
+            if ($validator->fails()) {
+                return response()->json($validator->messages(), 400);
+            }
+
+            $user = User::where('email', $request->email)->first();
+
+            $user->tokens()->delete();
+
+            return response()->json(['success'=>'Logged Out Successfully!']);
+
+        } catch ( \Exception $e ) {
+            return response()->json(['error'=>$e->getMessage()], 500);
         }
     }
 } 
