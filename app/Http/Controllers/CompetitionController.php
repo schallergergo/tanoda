@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateCoverImageRequest;
 use App\Http\Requests\UpdateStandTemplateRequest;
 use App\Http\Requests\UpdateCompetitionRequest;
 use App\Http\Resources\Competition\CompetitionResource;
+use App\Http\Resources\Competition\CompetitionRankingResource;
 use App\Http\Resources\Competition\CompetitionCollection;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Lang;
@@ -52,6 +53,19 @@ class CompetitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function future()
+    {
+        
+        $now= now();
+        $competition=Competition::where("registration_start",">",$now)->get();
+        return new CompetitionCollection($competition);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function evaluationOpen()
     {
         Log::channel('single')->info("assessment.show");
@@ -61,7 +75,10 @@ class CompetitionController extends Controller
     }
 
     
-
+    public function ranking(Competition $competition)
+    {
+        return  new CompetitionRankingResource($competition);
+    }
 
 
 

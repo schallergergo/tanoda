@@ -92,6 +92,11 @@ Route::post('/auth/logout', [AuthController::class, 'logoutUser']);
 
 Route::middleware('sanctum')->group(function () {
 
+Route::get('/test', function (Request $request) {
+    return "test";
+});
+});
+
 Route::get('/user/team', [UserController::class, 'team'])->name('user.team');
 Route::get('/user/judge', [UserController::class, 'judge'])->name('user.judge');
 Route::get('/user/judge/openforeval', [UserController::class, 'judgeOpenForEvaluation'])->name('user.judgeopenforeval');
@@ -106,7 +111,7 @@ Route::get('locale/{locale}', [LocalizationController::class, 'setLocale']);
 
 Route::get('competition/{competition}/show',[CompetitionController::class, 'show'])->name('competition.show');
 Route::get('competition/index',[CompetitionController::class, 'index'])->name('competition.index');
-
+Route::get('competition/index/future',[CompetitionController::class, 'indexFuture'])->name('competition.indexFuture');
 //Frissült
 Route::get('competition/index/registrationOpen',[CompetitionController::class, "registrationOpen"])->name('competition.registration');
 //Frissült
@@ -114,7 +119,7 @@ Route::get('competition/index/evaluationOpen',[CompetitionController::class, "ev
 Route::post('competition/store',[CompetitionController::class, 'store'])->name('competition.store');
 Route::patch('competition/{competition}/update',[CompetitionController::class, 'update'])->name('competition.update');
 Route::get('competition/{competition}/delete',[CompetitionController::class, 'destroy'])->name('competition.delete');
-
+Route::get('competition/{competition}/ranking',[CompetitionController::class, 'ranking'])->name('competition.ranking');
 
 
 
@@ -189,6 +194,3 @@ Route::get('/assessment/{assessment}/show',[AssessmentController::class, 'show']
 Route::post('/assessment/{assessment}/update',[AssessmentController::class, 'update'])->name('assessment.update');
 Route::get('/assessment/{assessment}/delete',[AssessmentController::class, 'destroy'])->name('assessment.delete');
 Route::post('/assessmentblock/{assessment_block}/update',[AssessmentBlockController::class, 'update'])->name('assessmentblock.update');
-
-
-});

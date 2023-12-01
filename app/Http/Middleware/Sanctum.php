@@ -24,7 +24,7 @@ class Sanctum
 
         if ($token = DB::table('personal_access_tokens')->where('token',hash('sha256',$bearer))->first())
         {
-            if ($user = \App\User::find($token->tokenable_id))
+            if ($user = User::find($token->tokenable_id))
             {
                 Auth::login($user);
                 return $next($request);

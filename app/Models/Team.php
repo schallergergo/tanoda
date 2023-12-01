@@ -33,7 +33,7 @@ class Team extends Model
        return $this->hasMany(TeamMember::class);
     }
     public function assessment(){
-        return $this->hasOne(Assessment::class);
+        return $this->hasMany(Assessment::class);
     }
 
     public function onlineperiod(){
