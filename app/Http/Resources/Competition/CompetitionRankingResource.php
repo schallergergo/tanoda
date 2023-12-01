@@ -19,7 +19,7 @@ class CompetitionRankingResource extends JsonResource
             "success"=>true,
             "message"=>__("Record found"),
             "competition" =>parent::toArray($request),
-            "teams"=>$this->calculateRanking($this->resource)
+            "team_ranking"=>$this->calculateRanking($this->resource)
 
         ];
         
